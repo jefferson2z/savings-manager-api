@@ -14,6 +14,18 @@ $ pipenv install
 $ uvicorn app.main:app --reload
 ```
 
+## Generate Migration based on models
+
+```
+$ alembic revision --autogenerate -m 'descriptive message here'
+```
+
+## Run migrations to latest
+
+```
+$ alembic upgrade head
+```
+
 ## Test
 
 For testing run:
