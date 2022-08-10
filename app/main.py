@@ -6,6 +6,10 @@ from sqlalchemy.orm import Session
 from app import crud, models
 from app.database import SessionLocal, engine
 
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
+
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()

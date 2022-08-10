@@ -8,6 +8,8 @@ fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
 autopep8 = "*"
 sqlalchemy = "*"
+alembic = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
