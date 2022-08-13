@@ -4,7 +4,9 @@ from app import models, schemas
 
 
 def get_portfolio(db: Session, portfolio_id: int):
-    return db.query(models.Portfolio).filter(models.Portfolio.id == portfolio_id).first()
+    return (
+        db.query(models.Portfolio).filter(models.Portfolio.id == portfolio_id).first()
+    )
 
 
 def list_portfolios(db: Session, skip: int = 0, limit: int = 100):

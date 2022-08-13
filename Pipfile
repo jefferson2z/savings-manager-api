@@ -11,6 +11,7 @@ sqlalchemy = "*"
 alembic = "*"
 python-dotenv = "*"
 black = "*"
+pre-commit = "*"
 
 [dev-packages]
 
