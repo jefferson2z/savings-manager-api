@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from app import crud, models
-from app.database import SessionLocal, engine
+from app.db.database import SessionLocal, engine
 
 from dotenv import load_dotenv
 
