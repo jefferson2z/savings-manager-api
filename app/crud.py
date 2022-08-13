@@ -17,3 +17,10 @@ def create_portfolio(db: Session, portfolio: schemas.PortfolioCreate):
     db.commit()
     db.refresh(db_portfolio)
     return db_portfolio
+
+
+def delete_portfolio(db: Session, portfolio_id: int):
+    db_portfolio = db.query(models.Portfolio).get(portfolio_id)
+    db.delete(db_portfolio)
+    db.commit()
+    return db_portfolio
