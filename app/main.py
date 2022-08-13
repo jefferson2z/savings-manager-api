@@ -46,7 +46,7 @@ def list_portfolios(skip: int = 0, limit: int = 100, db: Session = Depends(get_d
 @app.post("/portfolios")
 def create_portfolio(portfolio: Portfolio, db: Session = Depends(get_db)):
     db_portfolio = crud.create_portfolio(db, portfolio)
-    return {"portfolios": db_portfolio}
+    return {"portfolio": db_portfolio}
 
 
 @app.get("/portfolios/{portfolio_id}")
