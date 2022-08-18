@@ -10,10 +10,10 @@ autopep8 = "*"
 sqlalchemy = "*"
 alembic = "*"
 python-dotenv = "*"
-black = "*"
 pre-commit = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.10"
