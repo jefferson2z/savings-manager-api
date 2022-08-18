@@ -9,6 +9,10 @@ class PortfolioCreate(PortfolioBase):
     pass
 
 
+class PortfolioUpdate(PortfolioBase):
+    pass
+
+
 class Portfolio(PortfolioBase):
     id: int
 

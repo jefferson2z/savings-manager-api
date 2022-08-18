@@ -26,3 +26,17 @@ def delete_portfolio(db: Session, portfolio_id: int):
     db.delete(db_portfolio)
     db.commit()
     return db_portfolio
+
+
+def update_portfolio(
+    db: Session,
+    db_portfolio: schemas.Portfolio,
+    portfolio_update: schemas.PortfolioUpdate,
+):
+    portfolio_data = portfolio_update.dict(exclude_unset=True)
+    for key, value in portfolio_data.items():
+        setattr(db_portfolio, key, value)
+    db.add(db_portfolio)
+    db.commit()
+    db.refresh(db_portfolio)
+    return db_portfolio

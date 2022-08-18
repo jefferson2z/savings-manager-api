@@ -56,6 +56,19 @@ def get_portfolio(portfolio_id: int, db: Session = Depends(get_db)):
     return {"portfolio": db_portfolio}
 
 
+@app.put("/portfolios/{portfolio_id}")
+def update_portfolio(
+    portfolio_id: int, portfolio: Portfolio, db: Session = Depends(get_db)
+):
+    db_portfolio = crud.get_portfolio(db, portfolio_id=portfolio_id)
+    if db_portfolio is None:
+        raise HTTPException(status_code=404, detail="Portfolio not found")
+    db_portfolio = crud.update_portfolio(
+        db, db_portfolio=db_portfolio, portfolio_update=portfolio
+    )
+    return {"portfolio": db_portfolio}
+
+
 @app.delete("/portfolios/{portfolio_id}")
 def delete_portfolio(portfolio_id: int, db: Session = Depends(get_db)):
     db_portfolio = crud.get_portfolio(db, portfolio_id=portfolio_id)
