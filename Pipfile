@@ -10,6 +10,7 @@ autopep8 = "*"
 sqlalchemy = "*"
 alembic = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 black = "*"
