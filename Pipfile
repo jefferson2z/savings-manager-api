@@ -9,8 +9,8 @@ uvicorn = {extras = ["standard"], version = "*"}
 autopep8 = "*"
 sqlalchemy = "*"
 alembic = "*"
-python-dotenv = "*"
 gunicorn = "*"
+psycopg2 = "*"
 
 [dev-packages]
 black = "*"
