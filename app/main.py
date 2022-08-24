@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 
 from app import crud, models
+from app.config import CLIENT_URL
 from app.db.database import SessionLocal, engine
 
 
@@ -14,7 +15,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[CLIENT_URL],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

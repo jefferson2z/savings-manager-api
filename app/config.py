@@ -3,6 +3,8 @@ from starlette.datastructures import Secret
 
 config = Config(".env")
 
+CLIENT_URL = config("CLIENT_URL", cast=str)
+
 DATABASE_URL = config("DATABASE_URL", cast=str, default=None)
 
 if DATABASE_URL is None:
