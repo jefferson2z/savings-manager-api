@@ -3,7 +3,7 @@ from starlette.datastructures import Secret
 
 config = Config(".env")
 
-DATABASE_URL = config("DATABASE_URL ", cast=str, default=None)
+DATABASE_URL = config("DATABASE_URL", cast=str, default=None)
 
 if DATABASE_URL is None:
     POSTGRES_USER = config("POSTGRES_USER", cast=str)
