@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException
 from sqlalchemy.orm import Session
 
-from app import schemas
+from app.schemas import portfolio_schema
 from app.api import dependencies
 from app.crud import portfolios_crud
 
@@ -19,7 +19,8 @@ def list_portfolios(
 
 @router.post("/portfolios")
 def create_portfolio(
-    portfolio: schemas.PortfolioCreate, db: Session = Depends(dependencies.get_db)
+    portfolio: portfolio_schema.PortfolioCreate,
+    db: Session = Depends(dependencies.get_db),
 ):
     db_portfolio = portfolios_crud.create_portfolio(db, portfolio)
     return {"portfolio": db_portfolio}
@@ -36,7 +37,7 @@ def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db))
 @router.put("/portfolios/{portfolio_id}")
 def update_portfolio(
     portfolio_id: int,
-    portfolio: schemas.PortfolioUpdate,
+    portfolio: portfolio_schema.PortfolioUpdate,
     db: Session = Depends(dependencies.get_db),
 ):
     db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)

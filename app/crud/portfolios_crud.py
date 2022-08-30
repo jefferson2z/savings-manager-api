@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
-from app import schemas
 from app.models.portfolio import Portfolio
+from app.schemas import portfolio_schema
 
 
 def get_portfolio(db: Session, portfolio_id: int):
@@ -12,7 +12,7 @@ def list_portfolios(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Portfolio).offset(skip).limit(limit).all()
 
 
-def create_portfolio(db: Session, portfolio_create: schemas.PortfolioCreate):
+def create_portfolio(db: Session, portfolio_create: portfolio_schema.PortfolioCreate):
     db_portfolio = Portfolio(**portfolio_create.dict())
     db.add(db_portfolio)
     db.commit()
@@ -29,8 +29,8 @@ def delete_portfolio(db: Session, portfolio_id: int):
 
 def update_portfolio(
     db: Session,
-    db_portfolio: schemas.Portfolio,
-    portfolio_update: schemas.PortfolioUpdate,
+    db_portfolio: portfolio_schema.Portfolio,
+    portfolio_update: portfolio_schema.PortfolioUpdate,
 ):
     portfolio_data = portfolio_update.dict(exclude_unset=True)
     for key, value in portfolio_data.items():
