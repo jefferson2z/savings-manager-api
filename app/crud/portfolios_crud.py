@@ -1,20 +1,19 @@
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+from app import schemas
+from app.models.portfolio import Portfolio
 
 
 def get_portfolio(db: Session, portfolio_id: int):
-    return (
-        db.query(models.Portfolio).filter(models.Portfolio.id == portfolio_id).first()
-    )
+    return db.query(Portfolio).filter(Portfolio.id == portfolio_id).first()
 
 
 def list_portfolios(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Portfolio).offset(skip).limit(limit).all()
+    return db.query(Portfolio).offset(skip).limit(limit).all()
 
 
-def create_portfolio(db: Session, portfolio: schemas.PortfolioCreate):
-    db_portfolio = models.Portfolio(**portfolio.dict())
+def create_portfolio(db: Session, portfolio_create: schemas.PortfolioCreate):
+    db_portfolio = Portfolio(**portfolio_create.dict())
     db.add(db_portfolio)
     db.commit()
     db.refresh(db_portfolio)
@@ -22,7 +21,7 @@ def create_portfolio(db: Session, portfolio: schemas.PortfolioCreate):
 
 
 def delete_portfolio(db: Session, portfolio_id: int):
-    db_portfolio = db.query(models.Portfolio).get(portfolio_id)
+    db_portfolio = db.query(Portfolio).get(portfolio_id)
     db.delete(db_portfolio)
     db.commit()
     return db_portfolio

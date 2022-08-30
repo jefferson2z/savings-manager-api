@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app import models
+from app.models.portfolio import Base
 from app.api import portfolios
 from app.config import CLIENT_URL
 from app.db.database import engine
 
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
