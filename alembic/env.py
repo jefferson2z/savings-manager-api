@@ -5,14 +5,12 @@ from sqlalchemy import pool
 
 from alembic import context
 
-import os
 
-from dotenv import load_dotenv
+from app.config import DATABASE_URL
 
 # Import Base from models so that Base has the models loaded for autogenerate
-from app.models import Base
+from app.models.portfolio import Base
 
-load_dotenv()  # take environment variables from .env.
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -36,8 +34,7 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    db_uri = os.getenv("DATABASE_URI")
-    return db_uri
+    return DATABASE_URL
 
 
 def run_migrations_offline() -> None:
