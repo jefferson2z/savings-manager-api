@@ -1,14 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.db.init_db import init_db
 
 
-from app.models.portfolio import Base
 from app.api import portfolios
 from app.config import CLIENT_URL
-from app.db.database import engine
 
 
-Base.metadata.create_all(bind=engine)
+init_db()
 
 app = FastAPI()
 
