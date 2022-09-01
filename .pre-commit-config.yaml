@@ -3,3 +3,14 @@ repos:
     rev: 22.6.0
     hooks:
       - id: black
+
+  - repo: local
+    hooks:
+    - id: pytest
+      name: pytest
+      stages: [commit, push]
+      types: [python]
+      entry: pytest
+      language: system
+      pass_filenames: false
+      always_run: true
