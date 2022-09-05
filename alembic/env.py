@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 
-from app.db.database import get_database_url
+from app.config import settings
 
 # Import Base from models so that Base has the models loaded for autogenerate
 from app.models.portfolio import Base
@@ -46,7 +46,7 @@ def run_migrations_offline() -> None:
 
     """
     context.configure(
-        url=get_database_url(),
+        url=settings.get_database_url(),
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -64,7 +64,7 @@ def run_migrations_online() -> None:
 
     """
     configuration = config.get_section(config.config_ini_section)
-    configuration["sqlalchemy.url"] = get_database_url()
+    configuration["sqlalchemy.url"] = settings.get_database_url()
 
     connectable = engine_from_config(
         configuration,

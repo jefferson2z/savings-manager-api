@@ -15,5 +15,11 @@ class Settings(BaseSettings):
     # Clients Settings
     client_url: str
 
+    def get_database_url(self):
+        if self.database_url:
+            return self.database_url
+        else:
+            return f"postgresql://{self.postgres_user}:{self.postgres_password}@{self.postgres_server}:{self.postgres_port}/{self.postgres_db}"
+
 
 settings = Settings()
