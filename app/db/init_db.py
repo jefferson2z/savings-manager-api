@@ -1,12 +1,10 @@
 from app.models.portfolio import Base
-from app.db.database import engine
-
 
 from alembic.config import Config
 from alembic import command
 
 
-def init_db():
+def init_db(engine):
     Base.metadata.create_all(bind=engine)
 
     alembic_cfg = Config("alembic.ini")
