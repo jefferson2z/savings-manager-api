@@ -4,7 +4,7 @@ from app.db.init_db import init_db
 
 
 from app.api import portfolios
-from app.config import CLIENT_URL
+from app.config import settings
 
 
 init_db()
@@ -13,7 +13,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[CLIENT_URL],
+    allow_origins=[settings.client_url],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
