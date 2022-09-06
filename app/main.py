@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import engine
 from app.db.init_db import init_db
 
-from app.api import portfolios
+from app.api import portfolios, users
 from app.config import settings
 
 
@@ -21,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(portfolios.router)
+app.include_router(users.router)
 
 
 @app.get("/")
