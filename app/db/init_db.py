@@ -1,4 +1,4 @@
-from app.models.portfolio import Base
+from app.db import Base
 
 from alembic.config import Config
 from alembic import command
