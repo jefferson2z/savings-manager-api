@@ -16,3 +16,12 @@ def create_user(
 ):
     db_user = users_crud.create_user(db, user)
     return db_user
+
+
+@router.get("/{user_id}", response_model=user_schema.User)
+def get_user(
+    user_id: int,
+    db: Session = Depends(dependencies.get_db),
+):
+    db_user = users_crud.get_user(db, user_id=user_id)
+    return db_user
