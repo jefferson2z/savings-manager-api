@@ -3,7 +3,7 @@ class TestUserApi:
         response = client.post(
             "/users/", json={"username": "Ikari", "password": "safe password"}
         )
-        assert response.status_code == 200
+        assert response.status_code == 201
         assert response.json() == {"id": "1", "username": "Ikari"}
 
     def test_get_user(self, client):
