@@ -1,4 +1,4 @@
-from fastapi import Depends, APIRouter, HTTPException
+from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.schemas import portfolio_schema
@@ -17,7 +17,7 @@ def list_portfolios(
     return {"portfolios": db_portfolios}
 
 
-@router.post("/")
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def create_portfolio(
     portfolio: portfolio_schema.PortfolioCreate,
     db: Session = Depends(dependencies.get_db),
