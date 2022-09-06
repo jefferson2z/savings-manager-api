@@ -6,10 +6,10 @@ from app.api import dependencies
 from app.crud import portfolios_crud
 
 
-router = APIRouter()
+router = APIRouter(prefix="/portfolios")
 
 
-@router.get("/portfolios")
+@router.get("/")
 def list_portfolios(
     skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
 ):
@@ -17,7 +17,7 @@ def list_portfolios(
     return {"portfolios": db_portfolios}
 
 
-@router.post("/portfolios")
+@router.post("/")
 def create_portfolio(
     portfolio: portfolio_schema.PortfolioCreate,
     db: Session = Depends(dependencies.get_db),
@@ -26,7 +26,7 @@ def create_portfolio(
     return {"portfolio": db_portfolio}
 
 
-@router.get("/portfolios/{portfolio_id}")
+@router.get("/{portfolio_id}")
 def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db)):
     db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
     if db_portfolio is None:
@@ -34,7 +34,7 @@ def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db))
     return {"portfolio": db_portfolio}
 
 
-@router.put("/portfolios/{portfolio_id}")
+@router.put("/{portfolio_id}")
 def update_portfolio(
     portfolio_id: int,
     portfolio: portfolio_schema.PortfolioUpdate,
@@ -49,7 +49,7 @@ def update_portfolio(
     return {"portfolio": db_portfolio}
 
 
-@router.delete("/portfolios/{portfolio_id}")
+@router.delete("/{portfolio_id}")
 def delete_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db)):
     db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
     if db_portfolio is None:
