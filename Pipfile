@@ -12,6 +12,7 @@ alembic = "*"
 gunicorn = "*"
 psycopg2 = "*"
 requests = "*"
+python-multipart = "*"
 
 [dev-packages]
 black = "*"
