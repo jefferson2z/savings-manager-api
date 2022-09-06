@@ -14,3 +14,10 @@ def create_user(db: Session, user_create: user_schema.UserCreate):
 
 def get_user(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
+
+
+def delete_user(db: Session, user_id: int):
+    db_user = db.query(User).get(user_id)
+    db.delete(db_user)
+    db.commit()
+    return db_user
