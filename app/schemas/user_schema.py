@@ -7,6 +7,14 @@ class UserBase(BaseModel):
 
 class User(UserBase):
     id: str
+    password_hash: str
+
+    class Config:
+        orm_mode = True
+
+
+class UserOutput(UserBase):
+    id: str
 
     class Config:
         orm_mode = True

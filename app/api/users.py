@@ -9,7 +9,9 @@ from app.crud import users_crud
 router = APIRouter(prefix="/users")
 
 
-@router.post("/", response_model=user_schema.User, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", response_model=user_schema.UserOutput, status_code=status.HTTP_201_CREATED
+)
 def create_user(
     user: user_schema.UserCreate,
     db: Session = Depends(dependencies.get_db),
@@ -18,7 +20,7 @@ def create_user(
     return db_user
 
 
-@router.get("/{user_id}", response_model=user_schema.User)
+@router.get("/{user_id}", response_model=user_schema.UserOutput)
 def get_user(
     user_id: int,
     db: Session = Depends(dependencies.get_db),
