@@ -7,7 +7,7 @@ from app.api import dependencies
 from app.crud import users_crud
 
 
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.get("/me", response_model=user_schema.UserOutput)

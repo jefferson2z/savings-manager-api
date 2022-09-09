@@ -10,7 +10,7 @@ from app.crud import users_crud
 from app.config import settings
 
 
-router = APIRouter()
+router = APIRouter(tags=["login"])
 
 
 @router.post("/token")
