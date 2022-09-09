@@ -1,12 +1,18 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app.api.dependencies import get_current_user
 from app.schemas import user_schema
 from app.api import dependencies
 from app.crud import users_crud
 
 
 router = APIRouter(prefix="/users")
+
+
+@router.get("/me", response_model=user_schema.UserOutput)
+async def read_user_me(current_user: user_schema.User = Depends(get_current_user)):
+    return current_user
 
 
 @router.post(

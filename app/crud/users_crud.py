@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.api.dependencies import get_password_hash
 
+from app.security import get_password_hash, verify_password
 from app.models.user import User
 from app.schemas import user_schema
 
@@ -29,4 +29,13 @@ def delete_user(db: Session, user_id: int):
     db_user = db.query(User).get(user_id)
     db.delete(db_user)
     db.commit()
+    return db_user
+
+
+def authenticate(db: Session, username: str, password: str):
+    db_user = get_user_by_username(db, username)
+    if not db_user:
+        return False
+    if not verify_password(password, db_user.password_hash):
+        return False
     return db_user

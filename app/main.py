@@ -7,6 +7,7 @@ from app.db.init_db import init_db
 from app.api import portfolios, users
 from app.config import settings
 
+from app.api import portfolios, login, users
 
 init_db(engine)
 
@@ -20,6 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(login.router)
 app.include_router(portfolios.router)
 app.include_router(users.router)
 

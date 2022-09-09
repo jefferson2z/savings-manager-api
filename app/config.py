@@ -4,6 +4,11 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     app_name: str = "Savings Manager"
 
+    # Security
+    secret_key: str
+    jwt_algorithm: str
+    access_token_expire_minutes: str
+
     # Database Settings
     postgres_user: str | None
     postgres_password: str | None
