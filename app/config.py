@@ -6,8 +6,8 @@ class Settings(BaseSettings):
 
     # Security
     secret_key: str
-    jwt_algorithm: str
-    access_token_expire_minutes: str
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: str = "30"
 
     # Database Settings
     postgres_user: str | None
