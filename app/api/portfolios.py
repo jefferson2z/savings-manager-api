@@ -6,7 +6,11 @@ from app.api import dependencies
 from app.crud import portfolios_crud
 
 
-router = APIRouter(prefix="/portfolios", tags=["portfolios"])
+router = APIRouter(
+    prefix="/portfolios",
+    tags=["portfolios"],
+    dependencies=[Depends(dependencies.get_current_user)],
+)
 
 
 @router.get("/")

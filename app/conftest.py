@@ -19,3 +19,14 @@ def client():
     yield TestClient(app)
     if os.path.exists("test.db"):
         os.remove("test.db")
+
+
+@pytest.fixture()
+def jwt(client):
+    client.post("/users/", json={"username": "Ikari", "password": "safe password"})
+    response_token = client.post(
+        "/token", data={"username": "Ikari", "password": "safe password"}
+    )
+    response_token_json = response_token.json()
+    access_token = response_token_json["access_token"]
+    yield access_token
