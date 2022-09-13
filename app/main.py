@@ -1,15 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.db.database import engine
-from app.db.init_db import init_db
-
 from app.api import portfolios, users
 from app.config import settings
 
 from app.api import portfolios, login, users
 
-init_db(engine)
 
 app = FastAPI()
 
