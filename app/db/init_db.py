@@ -1,7 +1,7 @@
-from app.db import Base
-
 from alembic.config import Config
 from alembic import command
+
+from .base import Base
 
 
 def init_db(engine):

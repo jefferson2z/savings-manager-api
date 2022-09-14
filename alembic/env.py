@@ -9,7 +9,7 @@ from alembic import context
 from app.config import settings
 
 # Import Base from models so that Base has the models loaded for autogenerate
-from app.db import Base
+from app.db.base import Base
 
 
 # this is the Alembic Config object, which provides
