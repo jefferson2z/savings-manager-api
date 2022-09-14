@@ -1,4 +1,3 @@
-from app.models.portfolio import Portfolio
-from app.models.user import User
+from app.db.declarative_base import Base
 
-from .database import Base
+import app.models
