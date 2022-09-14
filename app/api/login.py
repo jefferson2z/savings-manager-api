@@ -25,7 +25,7 @@ async def login_get_access_token(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
-            header={"WWW-Authenticate": "Bearer"},
+            headers={"WWW-Authenticate": "Bearer"},
         )
     expires_delta = timedelta(minutes=int(settings.access_token_expire_minutes))
     access_token = create_access_token(
