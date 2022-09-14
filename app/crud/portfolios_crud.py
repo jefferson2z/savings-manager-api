@@ -10,12 +10,20 @@ def get_portfolio(db: Session, portfolio_id: int):
     )
 
 
-def list_portfolios(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Portfolio).offset(skip).limit(limit).all()
+def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(models.Portfolio)
+        .where(models.Portfolio.user_id == user_id)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
 
-def create_portfolio(db: Session, portfolio_create: portfolio_schema.PortfolioCreate):
-    db_portfolio = models.Portfolio(**portfolio_create.dict())
+def create_portfolio(
+    db: Session, portfolio_create: portfolio_schema.PortfolioCreate, user_id: int
+):
+    db_portfolio = models.Portfolio(**portfolio_create.dict(), user_id=user_id)
     db.add(db_portfolio)
     db.commit()
     db.refresh(db_portfolio)

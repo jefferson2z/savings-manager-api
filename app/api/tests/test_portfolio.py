@@ -10,7 +10,9 @@ class TestPortfolioApi:
         )
 
         assert response.status_code == 201
-        assert response.json() == {"portfolio": {"id": 1, "name": "Stocks"}}
+        assert response.json() == {
+            "portfolio": {"id": 1, "name": "Stocks", "user_id": 1}
+        }
 
     def test_list_portfolios(self, client, jwt):
         response = client.get(

@@ -1,7 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.schemas import portfolio_schema
+from app.schemas import portfolio_schema, user_schema
 from app.api import dependencies
 from app.crud import portfolios_crud
 
@@ -15,9 +15,17 @@ router = APIRouter(
 
 @router.get("/")
 def list_portfolios(
-    skip: int = 0, limit: int = 100, db: Session = Depends(dependencies.get_db)
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(dependencies.get_db),
+    current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
-    db_portfolios = portfolios_crud.list_portfolios(db, skip=skip, limit=limit)
+    db_portfolios = portfolios_crud.list_portfolios(
+        db,
+        current_user.id,
+        skip=skip,
+        limit=limit,
+    )
     return {"portfolios": db_portfolios}
 
 
@@ -25,8 +33,9 @@ def list_portfolios(
 def create_portfolio(
     portfolio: portfolio_schema.PortfolioCreate,
     db: Session = Depends(dependencies.get_db),
+    current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
-    db_portfolio = portfolios_crud.create_portfolio(db, portfolio)
+    db_portfolio = portfolios_crud.create_portfolio(db, portfolio, current_user.id)
     return {"portfolio": db_portfolio}
 
 
