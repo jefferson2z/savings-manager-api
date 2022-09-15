@@ -5,10 +5,6 @@ class PortfolioBase(BaseModel):
     name: str
 
 
-class Portfolio(PortfolioBase):
-    pass
-
-
 class PortfolioCreate(PortfolioBase):
     pass
 
