@@ -41,12 +41,12 @@ def create_portfolio(
     return db_portfolio
 
 
-@router.get("/{portfolio_id}")
+@router.get("/{portfolio_id}", response_model=portfolio_schema.Portfolio)
 def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db)):
     db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
-    return {"portfolio": db_portfolio}
+    return db_portfolio
 
 
 @router.put("/{portfolio_id}")

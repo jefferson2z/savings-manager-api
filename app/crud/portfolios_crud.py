@@ -8,8 +8,7 @@ def get_portfolio(db: Session, portfolio_id: int):
     db_portfolio = (
         db.query(models.Portfolio).filter(models.Portfolio.id == portfolio_id).first()
     )
-    portfolio = portfolio_schema.Portfolio.from_orm(db_portfolio)
-    return portfolio
+    return db_portfolio
 
 
 def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
