@@ -13,13 +13,18 @@ def get_portfolio(db: Session, portfolio_id: int):
 
 
 def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
-    return (
+    db_portfolio_list = (
         db.query(models.Portfolio)
         .where(models.Portfolio.user_id == user_id)
         .offset(skip)
         .limit(limit)
         .all()
     )
+    portfolio_list = [
+        portfolio_schema.Portfolio.from_orm(portfolio)
+        for portfolio in db_portfolio_list
+    ]
+    return portfolio_list
 
 
 def create_portfolio(
