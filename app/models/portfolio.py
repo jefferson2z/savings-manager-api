@@ -13,5 +13,9 @@ class Portfolio(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     user = relationship("User", back_populates="portfolios")
 
+    assets = relationship(
+        "Asset", back_populates="portfolio", cascade="all, delete-orphan"
+    )
+
     def __repr__(self):
         return f"Portfolio(id={self.id}, name={self.name}, user_id={self.user_id})"
