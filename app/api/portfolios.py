@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=list[portfolio_schema.Portfolio])
 def list_portfolios(
     skip: int = 0,
     limit: int = 100,
@@ -26,7 +26,7 @@ def list_portfolios(
         skip=skip,
         limit=limit,
     )
-    return {"portfolios": db_portfolios}
+    return db_portfolios
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

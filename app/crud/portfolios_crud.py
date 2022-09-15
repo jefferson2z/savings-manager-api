@@ -20,11 +20,7 @@ def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
         .limit(limit)
         .all()
     )
-    portfolio_list = [
-        portfolio_schema.Portfolio.from_orm(portfolio)
-        for portfolio in db_portfolio_list
-    ]
-    return portfolio_list
+    return db_portfolio_list
 
 
 def create_portfolio(

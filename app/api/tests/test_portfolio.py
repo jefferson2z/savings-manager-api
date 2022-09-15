@@ -33,6 +33,6 @@ class TestPortfolioApi:
             headers={"Authorization": f"Bearer {jwt}"},
         )
         assert response.status_code == 200
-        assert response.json() == {
-            "portfolios": [{"id": 1, "name": "Stocks", "user_id": 1, "assets": []}]
-        }
+        assert response.json() == [
+            {"id": 1, "name": "Stocks", "user_id": 1, "assets": []}
+        ]
