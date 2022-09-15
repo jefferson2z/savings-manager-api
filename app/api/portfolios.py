@@ -49,7 +49,7 @@ def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db))
     return db_portfolio
 
 
-@router.put("/{portfolio_id}")
+@router.put("/{portfolio_id}", response_model=portfolio_schema.Portfolio)
 def update_portfolio(
     portfolio_id: int,
     portfolio: portfolio_schema.PortfolioUpdate,
@@ -61,7 +61,7 @@ def update_portfolio(
     db_portfolio = portfolios_crud.update_portfolio(
         db, db_portfolio=db_portfolio, portfolio_update=portfolio
     )
-    return {"portfolio": db_portfolio}
+    return db_portfolio
 
 
 @router.delete("/{portfolio_id}")
