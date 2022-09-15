@@ -26,7 +26,7 @@ def create_user(
     return db_user
 
 
-@router.delete("/me")
+@router.delete("/me", response_model=user_schema.UserOutput)
 def delete_user(
     db: Session = Depends(dependencies.get_db),
     current_user: user_schema.User = Depends(get_current_user),
@@ -35,4 +35,4 @@ def delete_user(
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     db_user = users_crud.delete_user(db, user_id=current_user.id)
-    return {"user": db_user}
+    return db_user
