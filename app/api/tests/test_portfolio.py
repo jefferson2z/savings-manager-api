@@ -1,10 +1,14 @@
 class TestPortfolioApi:
-    def test_create_portfolio(self, client, jwt):
+    def create_portfolio(self, client, jwt, name):
         response = client.post(
             "/portfolios/",
-            json={"name": "Stocks"},
+            json={"name": name},
             headers={"Authorization": f"Bearer {jwt}"},
         )
+        return response
+
+    def test_create_portfolio(self, client, jwt):
+        response = self.create_portfolio(client, jwt, "Stocks")
 
         assert response.status_code == 201
         assert response.json() == {
@@ -12,11 +16,7 @@ class TestPortfolioApi:
         }
 
     def test_get_portfolio(self, client, jwt):
-        client.post(
-            "/portfolios/",
-            json={"name": "Stocks"},
-            headers={"Authorization": f"Bearer {jwt}"},
-        )
+        self.create_portfolio(client, jwt, "Stocks")
         response = client.get(
             "/portfolios/1",
             headers={"Authorization": f"Bearer {jwt}"},
@@ -27,11 +27,7 @@ class TestPortfolioApi:
         }
 
     def test_list_portfolios(self, client, jwt):
-        response = client.post(
-            "/portfolios/",
-            json={"name": "Stocks"},
-            headers={"Authorization": f"Bearer {jwt}"},
-        )
+        self.create_portfolio(client, jwt, "Stocks")
         response = client.get(
             "/portfolios",
             headers={"Authorization": f"Bearer {jwt}"},
