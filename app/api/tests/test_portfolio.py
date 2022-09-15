@@ -58,3 +58,18 @@ class TestPortfolioApi:
             "user_id": 1,
             "assets": [],
         }
+
+    def test_delete_portfolio(self, client, jwt):
+        self.create_portfolio(client, jwt, "Stocks")
+        response = client.delete(
+            "/portfolios/1",
+            headers={"Authorization": f"Bearer {jwt}"},
+        )
+
+        assert response.status_code == 200
+        assert response.json() == {
+            "id": 1,
+            "name": "Stocks",
+            "user_id": 1,
+            "assets": [],
+        }
