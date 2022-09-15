@@ -13,6 +13,4 @@ class TestAssetApi:
         )
 
         assert response.status_code == 201
-        assert response.json() == {
-            "asset": {"id": 1, "name": "Savings", "portfolio_id": 1}
-        }
+        assert response.json() == {"id": 1, "name": "Savings", "portfolio_id": 1}

@@ -11,6 +11,7 @@ class AssetCreate(AssetBase):
 
 class Asset(AssetBase):
     id: int
+    portfolio_id: int
 
     class Config:
         orm_mode = True

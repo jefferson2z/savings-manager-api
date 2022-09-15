@@ -13,10 +13,12 @@ router = APIRouter(
 )
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", status_code=status.HTTP_201_CREATED, response_model=asset_schema.Asset
+)
 def create_asset(
     asset: asset_schema.AssetCreate,
     db: Session = Depends(dependencies.get_db),
 ):
     db_asset = assets_crud.create_asset(db, asset)
-    return {"asset": db_asset}
+    return db_asset
