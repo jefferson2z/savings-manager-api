@@ -1,6 +1,3 @@
-from wsgiref import headers
-
-
 class TestPortfolioApi:
     def test_create_portfolio(self, client, jwt):
         response = client.post(
