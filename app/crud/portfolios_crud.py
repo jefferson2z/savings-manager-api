@@ -30,8 +30,7 @@ def create_portfolio(
     db.add(db_portfolio)
     db.commit()
     db.refresh(db_portfolio)
-    portfolio = portfolio_schema.Portfolio.from_orm(db_portfolio)
-    return portfolio
+    return db_portfolio
 
 
 def delete_portfolio(db: Session, portfolio_id: int):

@@ -29,14 +29,16 @@ def list_portfolios(
     return db_portfolios
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/", status_code=status.HTTP_201_CREATED, response_model=portfolio_schema.Portfolio
+)
 def create_portfolio(
     portfolio: portfolio_schema.PortfolioCreate,
     db: Session = Depends(dependencies.get_db),
     current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
     db_portfolio = portfolios_crud.create_portfolio(db, portfolio, current_user.id)
-    return {"portfolio": db_portfolio}
+    return db_portfolio
 
 
 @router.get("/{portfolio_id}")
