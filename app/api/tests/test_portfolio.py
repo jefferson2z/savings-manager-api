@@ -11,6 +11,21 @@ class TestPortfolioApi:
             "portfolio": {"id": 1, "name": "Stocks", "user_id": 1}
         }
 
+    def test_get_portfolio(self, client, jwt):
+        client.post(
+            "/portfolios/",
+            json={"name": "Stocks"},
+            headers={"Authorization": f"Bearer {jwt}"},
+        )
+        response = client.get(
+            "/portfolios/1",
+            headers={"Authorization": f"Bearer {jwt}"},
+        )
+        assert response.status_code == 200
+        assert response.json() == {
+            "portfolio": {"id": 1, "name": "Stocks", "user_id": 1}
+        }
+
     def test_list_portfolios(self, client, jwt):
         response = client.get(
             "/portfolios",
