@@ -10,3 +10,8 @@ def create_asset(db: Session, asset_create: asset_schema.AssetCreate):
     db.commit()
     db.refresh(db_asset)
     return db_asset
+
+
+def get_asset(db: Session, asset_id: int):
+    db_asset = db.query(models.Asset).filter(models.Asset.id == asset_id).first()
+    return db_asset
