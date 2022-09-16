@@ -1,14 +1,9 @@
-class TestPortfolioApi:
-    def create_portfolio(self, client, jwt, name):
-        response = client.post(
-            "/portfolios/",
-            json={"name": name},
-            headers={"Authorization": f"Bearer {jwt}"},
-        )
-        return response
+from app.tests.utils.portfolios import create_portfolio
 
+
+class TestPortfolioApi:
     def test_create_portfolio(self, client, jwt):
-        response = self.create_portfolio(client, jwt, "Stocks")
+        response = create_portfolio(client, jwt, "Stocks")
 
         assert response.status_code == 201
         assert response.json() == {
@@ -19,7 +14,7 @@ class TestPortfolioApi:
         }
 
     def test_get_portfolio(self, client, jwt):
-        self.create_portfolio(client, jwt, "Stocks")
+        create_portfolio(client, jwt, "Stocks")
         response = client.get(
             "/portfolios/1",
             headers={"Authorization": f"Bearer {jwt}"},
@@ -33,7 +28,7 @@ class TestPortfolioApi:
         }
 
     def test_list_portfolios(self, client, jwt):
-        self.create_portfolio(client, jwt, "Stocks")
+        create_portfolio(client, jwt, "Stocks")
         response = client.get(
             "/portfolios",
             headers={"Authorization": f"Bearer {jwt}"},
@@ -44,7 +39,7 @@ class TestPortfolioApi:
         ]
 
     def test_update_portfolio(self, client, jwt):
-        self.create_portfolio(client, jwt, "Stocks")
+        create_portfolio(client, jwt, "Stocks")
         response = client.put(
             "/portfolios/1",
             json={"name": "Savings"},
@@ -60,7 +55,7 @@ class TestPortfolioApi:
         }
 
     def test_delete_portfolio(self, client, jwt):
-        self.create_portfolio(client, jwt, "Stocks")
+        create_portfolio(client, jwt, "Stocks")
         response = client.delete(
             "/portfolios/1",
             headers={"Authorization": f"Bearer {jwt}"},
