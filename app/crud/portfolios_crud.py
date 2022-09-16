@@ -36,8 +36,7 @@ def delete_portfolio(db: Session, portfolio_id: int):
     db_portfolio = db.query(models.Portfolio).get(portfolio_id)
     db.delete(db_portfolio)
     db.commit()
-    portfolio = portfolio_schema.Portfolio.from_orm(db_portfolio)
-    return portfolio
+    return db_portfolio
 
 
 def update_portfolio(
