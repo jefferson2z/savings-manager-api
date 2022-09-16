@@ -30,3 +30,19 @@ def get_asset(asset_id: int, db: Session = Depends(dependencies.get_db)):
     if db_asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
     return db_asset
+
+
+@router.get("/", response_model=list[asset_schema.Asset])
+def list_assets(
+    portfolio_id: int,
+    skip: int = 0,
+    limit: int = 100,
+    db: Session = Depends(dependencies.get_db),
+):
+    db_assets = assets_crud.list_assets(
+        db,
+        portfolio_id,
+        skip=skip,
+        limit=limit,
+    )
+    return db_assets
