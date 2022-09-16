@@ -26,3 +26,17 @@ def list_assets(db: Session, portfolio_id: int, skip: int = 0, limit: int = 100)
         .all()
     )
     return db_asset_list
+
+
+def update_asset(
+    db: Session,
+    db_asset: asset_schema.Asset,
+    asset_update: asset_schema.AssetUpdate,
+):
+    asset_data = asset_update.dict(exclude_unset=True)
+    for key, value in asset_data.items():
+        setattr(db_asset, key, value)
+    db.add(db_asset)
+    db.commit()
+    db.refresh(db_asset)
+    return db_asset

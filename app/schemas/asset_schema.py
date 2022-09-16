@@ -9,6 +9,10 @@ class AssetCreate(AssetBase):
     portfolio_id: int
 
 
+class AssetUpdate(AssetBase):
+    pass
+
+
 class Asset(AssetBase):
     id: int
     portfolio_id: int

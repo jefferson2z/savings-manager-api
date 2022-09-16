@@ -46,3 +46,19 @@ class TestAssetApi:
                 "portfolio_id": 1,
             }
         ]
+
+    def test_update_asset(self, client, jwt):
+        create_portfolio(client, jwt, "Fixed Income")
+        create_asset(client, jwt, "Savings", 1)
+
+        response = client.put(
+            "/assets/1",
+            json={"name": "Checking"},
+            headers={"Authorization": f"Bearer {jwt}"},
+        )
+        assert response.status_code == 200
+        assert response.json() == {
+            "id": 1,
+            "name": "Checking",
+            "portfolio_id": 1,
+        }

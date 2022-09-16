@@ -46,3 +46,16 @@ def list_assets(
         limit=limit,
     )
     return db_assets
+
+
+@router.put("/{asset_id}", response_model=asset_schema.Asset)
+def asset_update(
+    asset_id: int,
+    asset: asset_schema.AssetUpdate,
+    db: Session = Depends(dependencies.get_db),
+):
+    db_asset = assets_crud.get_asset(db, asset_id=asset_id)
+    if db_asset is None:
+        raise HTTPException(status_code=404, detail="Asset not found")
+    db_asset = assets_crud.update_asset(db, db_asset=db_asset, asset_update=asset)
+    return db_asset
