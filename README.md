@@ -31,6 +31,7 @@ $ alembic upgrade head
 For testing run:
 
 ```
+pytest
 ```
 
 For coverage report run:
