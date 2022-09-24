@@ -6,7 +6,18 @@ from app.schemas import portfolio_schema
 
 
 class PortfoliosCRUD(BaseCRUD):
-    pass
+    def create_with_user(
+        self,
+        db: Session,
+        portfolio_create: portfolio_schema.PortfolioCreate,
+        *,
+        user_id: int
+    ):
+        db_portfolio = self.model(**portfolio_create.dict(), user_id=user_id)
+        db.add(db_portfolio)
+        db.commit()
+        db.refresh(db_portfolio)
+        return db_portfolio
 
 
 portfolio = PortfoliosCRUD(models.Portfolio)
@@ -21,16 +32,6 @@ def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
         .all()
     )
     return db_portfolio_list
-
-
-def create_portfolio(
-    db: Session, portfolio_create: portfolio_schema.PortfolioCreate, user_id: int
-):
-    db_portfolio = models.Portfolio(**portfolio_create.dict(), user_id=user_id)
-    db.add(db_portfolio)
-    db.commit()
-    db.refresh(db_portfolio)
-    return db_portfolio
 
 
 def delete_portfolio(db: Session, portfolio_id: int):

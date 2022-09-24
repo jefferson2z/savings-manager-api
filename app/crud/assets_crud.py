@@ -12,14 +12,6 @@ class AssetCRUD(BaseCRUD):
 asset = AssetCRUD(models.Asset)
 
 
-def create_asset(db: Session, asset_create: asset_schema.AssetCreate):
-    db_asset = models.Asset(**asset_create.dict())
-    db.add(db_asset)
-    db.commit()
-    db.refresh(db_asset)
-    return db_asset
-
-
 def list_assets(db: Session, portfolio_id: int, skip: int = 0, limit: int = 100):
     db_asset_list = (
         db.query(models.Asset)

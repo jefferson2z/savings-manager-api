@@ -21,7 +21,7 @@ def create_asset(
     asset: asset_schema.AssetCreate,
     db: Session = Depends(dependencies.get_db),
 ):
-    db_asset = assets_crud.create_asset(db, asset)
+    db_asset = crud.asset.create(db, asset)
     return db_asset
 
 

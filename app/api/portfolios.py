@@ -38,7 +38,9 @@ def create_portfolio(
     db: Session = Depends(dependencies.get_db),
     current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
-    db_portfolio = portfolios_crud.create_portfolio(db, portfolio, current_user.id)
+    db_portfolio = crud.portfolio.create_with_user(
+        db, portfolio, user_id=current_user.id
+    )
     return db_portfolio
 
 
