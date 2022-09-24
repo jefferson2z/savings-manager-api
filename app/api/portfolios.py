@@ -61,8 +61,8 @@ def update_portfolio(
     db_portfolio = crud.portfolio.get(db, id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
-    db_portfolio = portfolios_crud.update_portfolio(
-        db, db_portfolio=db_portfolio, portfolio_update=portfolio
+    db_portfolio = crud.portfolio.update(
+        db, db_item=db_portfolio, item_update=portfolio
     )
     return db_portfolio
 

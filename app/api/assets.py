@@ -58,7 +58,7 @@ def asset_update(
     db_asset = crud.asset.get(db, id=asset_id)
     if db_asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
-    db_asset = assets_crud.update_asset(db, db_asset=db_asset, asset_update=asset)
+    db_asset = crud.asset.update(db, db_item=db_asset, item_update=asset)
     return db_asset
 
 

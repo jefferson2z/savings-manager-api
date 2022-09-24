@@ -19,3 +19,12 @@ class BaseCRUD:
     def list(self, db: Session, *, skip: int = 0, limit: int = 100):
         db_item_list = db.query(self.model).offset(skip).limit(limit).all()
         return db_item_list
+
+    def update(self, db: Session, *, db_item, item_update):
+        item_data = item_update.dict(exclude_unset=True)
+        for key, value in item_data.items():
+            setattr(db_item, key, value)
+        db.add(db_item)
+        db.commit()
+        db.refresh(db_item)
+        return db_item

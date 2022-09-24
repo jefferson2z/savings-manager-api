@@ -22,20 +22,6 @@ class AssetCRUD(BaseCRUD):
 asset = AssetCRUD(models.Asset)
 
 
-def update_asset(
-    db: Session,
-    db_asset: asset_schema.Asset,
-    asset_update: asset_schema.AssetUpdate,
-):
-    asset_data = asset_update.dict(exclude_unset=True)
-    for key, value in asset_data.items():
-        setattr(db_asset, key, value)
-    db.add(db_asset)
-    db.commit()
-    db.refresh(db_asset)
-    return db_asset
-
-
 def delete_asset(db: Session, asset_id: int):
     db_asset = db.query(models.Asset).get(asset_id)
     db.delete(db_asset)
