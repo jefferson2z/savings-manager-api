@@ -1,7 +1,15 @@
 from sqlalchemy.orm import Session
 
 from app import models
+from app.crud.base_crud import BaseCRUD
 from app.schemas import asset_schema
+
+
+class AssetCRUD(BaseCRUD):
+    pass
+
+
+asset = AssetCRUD(models.Asset)
 
 
 def create_asset(db: Session, asset_create: asset_schema.AssetCreate):
@@ -9,11 +17,6 @@ def create_asset(db: Session, asset_create: asset_schema.AssetCreate):
     db.add(db_asset)
     db.commit()
     db.refresh(db_asset)
-    return db_asset
-
-
-def get_asset(db: Session, asset_id: int):
-    db_asset = db.query(models.Asset).filter(models.Asset.id == asset_id).first()
     return db_asset
 
 

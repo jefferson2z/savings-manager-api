@@ -1,14 +1,15 @@
 from sqlalchemy.orm import Session
 
 from app import models
+from app.crud.base_crud import BaseCRUD
 from app.schemas import portfolio_schema
 
 
-def get_portfolio(db: Session, portfolio_id: int):
-    db_portfolio = (
-        db.query(models.Portfolio).filter(models.Portfolio.id == portfolio_id).first()
-    )
-    return db_portfolio
+class PortfoliosCRUD(BaseCRUD):
+    pass
+
+
+portfolio = PortfoliosCRUD(models.Portfolio)
 
 
 def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):

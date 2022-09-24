@@ -1,6 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app import crud
 from app.schemas import portfolio_schema, user_schema
 from app.api import dependencies
 from app.crud import portfolios_crud
@@ -43,7 +44,7 @@ def create_portfolio(
 
 @router.get("/{portfolio_id}", response_model=portfolio_schema.Portfolio)
 def get_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db)):
-    db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
+    db_portfolio = crud.portfolio.get(db, id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
     return db_portfolio
@@ -55,7 +56,7 @@ def update_portfolio(
     portfolio: portfolio_schema.PortfolioUpdate,
     db: Session = Depends(dependencies.get_db),
 ):
-    db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
+    db_portfolio = crud.portfolio.get(db, id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
     db_portfolio = portfolios_crud.update_portfolio(
@@ -66,7 +67,7 @@ def update_portfolio(
 
 @router.delete("/{portfolio_id}", response_model=portfolio_schema.Portfolio)
 def delete_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_db)):
-    db_portfolio = portfolios_crud.get_portfolio(db, portfolio_id=portfolio_id)
+    db_portfolio = crud.portfolio.get(db, id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
     db_portfolio = portfolios_crud.delete_portfolio(db, portfolio_id=portfolio_id)

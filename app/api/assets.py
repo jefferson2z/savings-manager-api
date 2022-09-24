@@ -1,6 +1,7 @@
 from fastapi import Depends, APIRouter, HTTPException, status
 from sqlalchemy.orm import Session
 
+from app import crud
 from app.schemas import asset_schema
 from app.api import dependencies
 from app.crud import assets_crud
@@ -26,7 +27,7 @@ def create_asset(
 
 @router.get("/{asset_id}", response_model=asset_schema.Asset)
 def get_asset(asset_id: int, db: Session = Depends(dependencies.get_db)):
-    db_asset = assets_crud.get_asset(db, asset_id=asset_id)
+    db_asset = crud.asset.get(db, id=asset_id)
     if db_asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
     return db_asset
@@ -54,7 +55,7 @@ def asset_update(
     asset: asset_schema.AssetUpdate,
     db: Session = Depends(dependencies.get_db),
 ):
-    db_asset = assets_crud.get_asset(db, asset_id=asset_id)
+    db_asset = crud.asset.get(db, id=asset_id)
     if db_asset is None:
         raise HTTPException(status_code=404, detail="Asset not found")
     db_asset = assets_crud.update_asset(db, db_asset=db_asset, asset_update=asset)
@@ -63,7 +64,7 @@ def asset_update(
 
 @router.delete("/{asset_id}", response_model=asset_schema.Asset)
 def delete_asset(asset_id: int, db: Session = Depends(dependencies.get_db)):
-    db_asset = assets_crud.get_asset(db, asset_id=asset_id)
+    db_asset = crud.asset.get(db, id=asset_id)
     if db_asset is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
     db_asset = assets_crud.delete_asset(db, asset_id=asset_id)
