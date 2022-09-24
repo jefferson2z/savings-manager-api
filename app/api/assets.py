@@ -4,7 +4,6 @@ from sqlalchemy.orm import Session
 from app import crud
 from app.schemas import asset_schema
 from app.api import dependencies
-from app.crud import assets_crud
 
 
 router = APIRouter(
