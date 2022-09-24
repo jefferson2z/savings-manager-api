@@ -40,9 +40,9 @@ def list_assets(
     limit: int = 100,
     db: Session = Depends(dependencies.get_db),
 ):
-    db_assets = assets_crud.list_assets(
+    db_assets = crud.asset.list_by_portfolio(
         db,
-        portfolio_id,
+        portfolio_id=portfolio_id,
         skip=skip,
         limit=limit,
     )

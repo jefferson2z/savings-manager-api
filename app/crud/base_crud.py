@@ -15,3 +15,7 @@ class BaseCRUD:
     def get(self, db: Session, id):
         db_item = db.query(self.model).filter(self.model.id == id).first()
         return db_item
+
+    def list(self, db: Session, *, skip: int = 0, limit: int = 100):
+        db_item_list = db.query(self.model).offset(skip).limit(limit).all()
+        return db_item_list

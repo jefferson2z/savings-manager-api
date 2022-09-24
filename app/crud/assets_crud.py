@@ -6,21 +6,20 @@ from app.schemas import asset_schema
 
 
 class AssetCRUD(BaseCRUD):
-    pass
+    def list_by_portfolio(
+        self, db: Session, *, portfolio_id: int, skip: int = 0, limit: int = 100
+    ):
+        db_asset_list = (
+            db.query(self.model)
+            .where(self.model.portfolio_id == portfolio_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
+        return db_asset_list
 
 
 asset = AssetCRUD(models.Asset)
-
-
-def list_assets(db: Session, portfolio_id: int, skip: int = 0, limit: int = 100):
-    db_asset_list = (
-        db.query(models.Asset)
-        .where(models.Asset.portfolio_id == portfolio_id)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
-    return db_asset_list
 
 
 def update_asset(

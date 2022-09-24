@@ -19,19 +19,20 @@ class PortfoliosCRUD(BaseCRUD):
         db.refresh(db_portfolio)
         return db_portfolio
 
+    def list_by_user(
+        self, db: Session, *, user_id: int, skip: int = 0, limit: int = 100
+    ):
+        db_portfolio_list = (
+            db.query(self.model)
+            .where(self.model.user_id == user_id)
+            .offset(skip)
+            .limit(limit)
+            .all()
+        )
+        return db_portfolio_list
+
 
 portfolio = PortfoliosCRUD(models.Portfolio)
-
-
-def list_portfolios(db: Session, user_id: int, skip: int = 0, limit: int = 100):
-    db_portfolio_list = (
-        db.query(models.Portfolio)
-        .where(models.Portfolio.user_id == user_id)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
-    return db_portfolio_list
 
 
 def delete_portfolio(db: Session, portfolio_id: int):

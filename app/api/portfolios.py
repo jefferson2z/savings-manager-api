@@ -21,9 +21,9 @@ def list_portfolios(
     db: Session = Depends(dependencies.get_db),
     current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
-    db_portfolios = portfolios_crud.list_portfolios(
+    db_portfolios = crud.portfolio.list_by_user(
         db,
-        current_user.id,
+        user_id=current_user.id,
         skip=skip,
         limit=limit,
     )
