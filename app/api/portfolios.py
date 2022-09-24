@@ -72,5 +72,5 @@ def delete_portfolio(portfolio_id: int, db: Session = Depends(dependencies.get_d
     db_portfolio = crud.portfolio.get(db, id=portfolio_id)
     if db_portfolio is None:
         raise HTTPException(status_code=404, detail="Portfolio not found")
-    db_portfolio = portfolios_crud.delete_portfolio(db, portfolio_id=portfolio_id)
+    db_portfolio = crud.portfolio.delete(db, id=portfolio_id)
     return db_portfolio

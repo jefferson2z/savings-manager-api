@@ -28,3 +28,9 @@ class BaseCRUD:
         db.commit()
         db.refresh(db_item)
         return db_item
+
+    def delete(self, db: Session, id: int):
+        db_item = db.query(self.model).get(id)
+        db.delete(db_item)
+        db.commit()
+        return db_item

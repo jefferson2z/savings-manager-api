@@ -33,10 +33,3 @@ class PortfoliosCRUD(BaseCRUD):
 
 
 portfolio = PortfoliosCRUD(models.Portfolio)
-
-
-def delete_portfolio(db: Session, portfolio_id: int):
-    db_portfolio = db.query(models.Portfolio).get(portfolio_id)
-    db.delete(db_portfolio)
-    db.commit()
-    return db_portfolio

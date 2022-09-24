@@ -20,10 +20,3 @@ class AssetCRUD(BaseCRUD):
 
 
 asset = AssetCRUD(models.Asset)
-
-
-def delete_asset(db: Session, asset_id: int):
-    db_asset = db.query(models.Asset).get(asset_id)
-    db.delete(db_asset)
-    db.commit()
-    return db_asset
