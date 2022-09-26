@@ -15,7 +15,7 @@ class TestUserApi:
 
     def test_delete_user(self, client, jwt):
         response = client.delete(
-            f"/users/me",
+            "/users/me",
             headers={"Authorization": f"Bearer {jwt}"},
         )
         assert response.status_code == 200

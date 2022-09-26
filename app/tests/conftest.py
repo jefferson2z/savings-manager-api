@@ -1,12 +1,7 @@
 import pytest
-from fastapi.testclient import TestClient
-
-
 import os
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
-os.environ["DATABASE_URL"] = SQLALCHEMY_DATABASE_URL
-
+from fastapi.testclient import TestClient
 
 from app.main import app
 from app.db.database import engine

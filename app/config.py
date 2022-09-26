@@ -24,7 +24,10 @@ class Settings(BaseSettings):
         if self.database_url:
             return self.database_url
         else:
-            return f"postgresql://{self.postgres_user}:{self.postgres_password}@{self.postgres_server}:{self.postgres_port}/{self.postgres_db}"
+            return (
+                f"postgresql://{self.postgres_user}:{self.postgres_password}"
+                f"@{self.postgres_server}:{self.postgres_port}/{self.postgres_db}"
+            )
 
 
 settings = Settings()

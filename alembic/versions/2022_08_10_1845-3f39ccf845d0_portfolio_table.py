@@ -1,7 +1,7 @@
 """portfolio table
 
 Revision ID: 3f39ccf845d0
-Revises: 
+Revises:
 Create Date: 2022-08-10 18:45:13.640722
 
 """

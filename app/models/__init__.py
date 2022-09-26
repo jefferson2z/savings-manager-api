@@ -1,3 +1,3 @@
-from .portfolio import Portfolio
-from .user import User
-from .asset import Asset
+from .portfolio import Portfolio  # noqa: F401
+from .user import User  # noqa: F401
+from .asset import Asset  # noqa: F401

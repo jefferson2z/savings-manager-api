@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 
 from app import models
 from app.crud.base_crud import BaseCRUD
-from app.schemas import asset_schema
 
 
 class AssetCRUD(BaseCRUD):

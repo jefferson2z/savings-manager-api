@@ -34,7 +34,7 @@ class TestAssetApi:
         create_asset(client, jwt, "Savings", 1)
 
         response = client.get(
-            f"/assets/?portfolio_id=1",
+            "/assets/?portfolio_id=1",
             headers={"Authorization": f"Bearer {jwt}"},
         )
 
