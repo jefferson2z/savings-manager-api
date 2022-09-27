@@ -65,6 +65,6 @@ def asset_update(
 def delete_asset(asset_id: int, db: Session = Depends(dependencies.get_db)):
     db_asset = crud.asset.get(db, id=asset_id)
     if db_asset is None:
-        raise HTTPException(status_code=404, detail="Portfolio not found")
+        raise HTTPException(status_code=404, detail="Asset not found")
     db_asset = crud.asset.delete(db, id=asset_id)
     return db_asset

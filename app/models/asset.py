@@ -13,6 +13,10 @@ class Asset(Base):
     portfolio_id = Column(Integer, ForeignKey("portfolios.id"), nullable=False)
     portfolio = relationship("Portfolio", back_populates="assets")
 
+    deposits = relationship(
+        "Deposit", back_populates="asset", cascade="all, delete-orphan"
+    )
+
     def __repr__(self):
         return (
             f"Asset(id={self.id}, name={self.name}, portfolio_id={self.portfolio_id})"

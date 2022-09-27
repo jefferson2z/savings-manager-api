@@ -15,7 +15,7 @@ repos:
       name: pytest
       stages: [commit, push]
       types: [python]
-      entry: pytest 
+      entry: pipenv run pytest 
       language: system
       pass_filenames: false
       always_run: true

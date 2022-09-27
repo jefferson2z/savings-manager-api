@@ -9,7 +9,12 @@ class TestAssetApi:
         response = create_asset(client, jwt, "Savings", 1)
 
         assert response.status_code == 201
-        assert response.json() == {"id": 1, "name": "Savings", "portfolio_id": 1}
+        assert response.json() == {
+            "id": 1,
+            "name": "Savings",
+            "portfolio_id": 1,
+            "deposits": [],
+        }
 
     def test_get_asset(self, client, jwt):
         create_portfolio(client, jwt, "Fixed Income")
@@ -27,6 +32,7 @@ class TestAssetApi:
             "id": 1,
             "name": "Savings",
             "portfolio_id": 1,
+            "deposits": [],
         }
 
     def test_list_assets(self, client, jwt):
@@ -44,6 +50,7 @@ class TestAssetApi:
                 "id": 1,
                 "name": "Savings",
                 "portfolio_id": 1,
+                "deposits": [],
             }
         ]
 
@@ -61,6 +68,7 @@ class TestAssetApi:
             "id": 1,
             "name": "Checking",
             "portfolio_id": 1,
+            "deposits": [],
         }
 
     def test_delete_asset(self, client, jwt):
@@ -77,4 +85,5 @@ class TestAssetApi:
             "id": 1,
             "name": "Savings",
             "portfolio_id": 1,
+            "deposits": [],
         }
