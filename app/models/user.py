@@ -8,7 +8,7 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, nullable=False)
+    username = Column(String, nullable=False, unique=True)
     password_hash = Column(String, nullable=False)
 
     portfolios = relationship(
