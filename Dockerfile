@@ -23,4 +23,4 @@ COPY . .
 
 ENV DATABASE_URI=sqlite:///./testing_database.db
 ENV PATH="/venv/bin:$PATH"
-CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "app.main:app"]
+CMD ["gunicorn", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "--reload"]
