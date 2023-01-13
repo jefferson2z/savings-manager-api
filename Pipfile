@@ -16,13 +16,15 @@ python-multipart = "*"
 passlib = {extras = ["bcrypt"], version = "*"}
 pyopenssl = "*"
 python-jose = {extras = ["cryptography"], version = "*"}
+redis = "*"
+httpx = "*"
 
 [dev-packages]
 black = "*"
 pre-commit = "*"
-pytest = "*"
 flake8 = "*"
 pytest-env = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.10"

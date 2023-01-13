@@ -4,6 +4,7 @@ from jose import JWTError, jwt
 
 from app.config import settings
 from app.db.database import SessionLocal
+from app.cache.redis import redisConnection
 from app.schemas.login_schema import TokenData
 from app.crud import users_crud
 
@@ -17,6 +18,12 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def get_cache():
+    """Dependency for getting cache"""
+    cache = redisConnection
+    return cache
 
 
 async def get_current_user(db=Depends(get_db), token: str = Depends(oauth2_scheme)):

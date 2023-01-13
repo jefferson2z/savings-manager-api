@@ -205,3 +205,8 @@ tags
 
 # Ignore code-workspaces
 *.code-workspace
+
+### Redis ###
+# Ignore redis binary dump (dump.rdb) files
+
+*.rdb
