@@ -9,13 +9,15 @@ from app.schemas import user_schema
 def create_user(db: Session, user_create: user_schema.UserCreate):
     user_json = user_create.dict()
 
-    existing_db_user = get_user_by_username(db, user_json.get("username"))
+    username = str(user_json.get("username"))
+    existing_db_user = get_user_by_username(db, username)
     if existing_db_user:
         raise HTTPException(status_code=409, detail="username already exists")
 
+    password = str(user_json.get("password"))
     db_user = models.User(
         username=user_json.get("username"),
-        password_hash=get_password_hash(user_json.get("password")),
+        password_hash=get_password_hash(password),
     )
     db.add(db_user)
     db.commit()
