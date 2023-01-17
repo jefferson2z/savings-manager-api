@@ -37,13 +37,14 @@ async def get_current_user(db=Depends(get_db), token: str = Depends(oauth2_schem
         payload = jwt.decode(
             token, settings.secret_key, algorithms=[settings.jwt_algorithm]
         )
-        username: str = payload.get("sub")
+        username: str = str(payload.get("sub"))
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = users_crud.get_user_by_username(db, username=token_data.username)
+    username = str(token_data.username)
+    user = users_crud.get_user_by_username(db, username)
     if not user:
-        credentials_exception
+        return credentials_exception
     return user
