@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 from . import asset_schema
 
@@ -19,7 +20,7 @@ class Portfolio(PortfolioBase):
     id: int
     user_id: int
 
-    assets: list[asset_schema.Asset]
+    assets: Optional[list[asset_schema.Asset]]
 
     class Config:
         orm_mode = True

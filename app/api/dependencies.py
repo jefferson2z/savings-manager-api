@@ -4,9 +4,9 @@ from jose import JWTError, jwt
 
 from app.config import settings
 from app.db.database import SessionLocal
-from app.cache.redis import redisConnection
 from app.schemas.login_schema import TokenData
 from app.crud import users_crud
+from app.cache.cache import Cache
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -22,7 +22,7 @@ def get_db():
 
 def get_cache():
     """Dependency for getting cache"""
-    cache = redisConnection
+    cache = Cache()
     return cache
 
 

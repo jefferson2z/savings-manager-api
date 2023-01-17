@@ -35,7 +35,7 @@ class TestPortfolioApi:
         )
         assert response.status_code == 200
         assert response.json() == [
-            {"id": 1, "name": "Stocks", "user_id": 1, "assets": []}
+            {"id": 1, "name": "Stocks", "user_id": 1, "assets": None}
         ]
 
     def test_update_portfolio(self, client, jwt):

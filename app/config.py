@@ -24,6 +24,9 @@ class Settings(BaseSettings):
     # Clients Settings
     client_url: str
 
+    # Testing environment
+    ci: bool = False
+
     def get_database_url(self):
         if self.database_url:
             return self.database_url

@@ -5,7 +5,6 @@ from app import crud
 from app.schemas import portfolio_schema, user_schema
 from app.api import dependencies
 
-
 router = APIRouter(
     prefix="/portfolios",
     tags=["portfolios"],
@@ -18,15 +17,21 @@ def list_portfolios(
     skip: int = 0,
     limit: int = 100,
     db: Session = Depends(dependencies.get_db),
+    cache=Depends(dependencies.get_cache),
     current_user: user_schema.User = Depends(dependencies.get_current_user),
 ):
-    db_portfolios = crud.portfolio.list_by_user(
-        db,
-        user_id=current_user.id,
-        skip=skip,
-        limit=limit,
+    cache_key = f"portfolios_{current_user.id}"
+    portfolios = cache.get_or_set(
+        cache_key,
+        lambda: crud.portfolio.list_by_user(
+            db,
+            user_id=current_user.id,
+            skip=skip,
+            limit=limit,
+        ),
     )
-    return db_portfolios
+
+    return portfolios
 
 
 @router.post(
