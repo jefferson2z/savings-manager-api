@@ -10,19 +10,19 @@ class Settings(BaseSettings):
     access_token_expire_minutes: str = "30"
 
     # Database Settings
-    postgres_user: str | None
-    postgres_password: str | None
-    postgres_server: str | None
-    postgres_port: str | None
-    postgres_db: str | None
-    database_url: str | None
+    postgres_user: str | None = None
+    postgres_password: str | None = None
+    postgres_server: str | None = None
+    postgres_port: str | None = None
+    postgres_db: str | None = None
+    database_url: str | None = None
 
     # Redis Settings
-    redis_host: str | None
-    redis_port: str | None
+    redis_host: str | None = None
+    redis_port: str | None = None
 
     # Clients Settings
-    client_url: str
+    client_url: str | None = None
 
     # Testing environment
     ci: bool = False
