@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     # Redis Settings
     redis_host: str | None = None
     redis_port: str | None = None
+    redis_url: str | None = None
 
     # Clients Settings
     client_url: str | None = None
@@ -37,7 +38,9 @@ class Settings(BaseSettings):
             )
 
     def get_redis_address(self):
-        return {"host": self.redis_host, "port": self.redis_port}
+        if self.redis_url:
+            return self.redis_url
+        return f"redis://{self.redis_host}:{self.redis_port}"
 
 
 settings = Settings()
