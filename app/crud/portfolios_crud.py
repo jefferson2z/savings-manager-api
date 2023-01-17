@@ -11,7 +11,7 @@ class PortfoliosCRUD(BaseCRUD):
         db: Session,
         portfolio_create: portfolio_schema.PortfolioCreate,
         *,
-        user_id: int
+        user_id: str
     ):
         db_portfolio = self.model(**portfolio_create.dict(), user_id=user_id)
         db.add(db_portfolio)
@@ -20,7 +20,7 @@ class PortfoliosCRUD(BaseCRUD):
         return db_portfolio
 
     def list_by_user(
-        self, db: Session, *, user_id: int, skip: int = 0, limit: int = 100
+        self, db: Session, *, user_id: str, skip: int = 0, limit: int = 100
     ):
         db_portfolio_list = (
             db.query(self.model)
